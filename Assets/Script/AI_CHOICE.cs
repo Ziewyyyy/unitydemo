@@ -20,7 +20,6 @@ public class Ai : MonoBehaviour
     public int islasered = 0;
     public int ai_damage = 0;
 
-    public TextMeshProUGUI NumberBulletText;
     public TextMeshProUGUI AIChoiceText;
     public Player player;
 
@@ -364,7 +363,6 @@ public class Ai : MonoBehaviour
             aiImage.sprite = sprites[AI];
         }
         
-        NumberBulletText.text = "Bullet: " + bullet;
         aiImage.gameObject.SetActive(true);
         round++;
     }

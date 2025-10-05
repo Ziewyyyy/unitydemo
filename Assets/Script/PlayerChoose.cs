@@ -62,7 +62,7 @@
                 laser.gameObject.SetActive(true);
                 laser.interactable = true;
             }
-            NumberBulletText.text = "Bullet: " + bullet;
+     
         }
 
 

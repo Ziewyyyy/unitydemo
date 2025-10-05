@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
     public Button playButton;
     public GameObject retryButton;
 
+    public GameObject statusPanel;
+    public TextMeshProUGUI playerStatsText;
+    public TextMeshProUGUI aiStatsText;
+    public GameObject gameRoot;
+
     private bool isPlayerTurn = true;
     private bool playerHasChosen = false;
     void Start()
@@ -22,6 +27,35 @@ public class GameManager : MonoBehaviour
         retryButton.SetActive(false);
     }
 
+    private bool statusOpen = false;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            statusOpen = !statusOpen; 
+
+            if (statusOpen)
+            {
+                UpdateStatusPanel();
+                statusPanel.SetActive(true);
+                gameRoot.SetActive(false);
+            }
+            else
+            {
+                statusPanel.SetActive(false);
+                gameRoot.SetActive(true);
+            }
+
+            Debug.Log("Status Open: " + statusOpen);
+        }
+    }
+
+    void UpdateStatusPanel()
+    {
+        playerStatsText.text = "Player Status: \nPlayer Health: " + player.pHealth + "\nBullets: " + player.bullet;
+        aiStatsText.text = "AI Status: \nAI Health: " + ai.aHealth + "\nBullets: " + ai.bullet; 
+    }
     public void check_player_damage()
     {
         if(player.player_damage == 1)
@@ -121,7 +155,6 @@ public class GameManager : MonoBehaviour
         check_ai_health();
         yield return new WaitForSeconds(1f);
         CheckWinCondition();
-        ai.playerBulletLastTurn = player.bullet;
         isPlayerTurn = true;
         playerHasChosen = false;
         EnablePlayerButtons();
